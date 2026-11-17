@@ -1,0 +1,44 @@
+{
+  "id": "rule34-browser",
+  "name": "Rule34 Browser",
+  "version": "0.1.0",
+  "manifestURI": "",
+  "language": "javascript",
+  "type": "plugin",
+  "description": "Browse Rule34 posts from Seanime. 18+ only. Content involving minors is always filtered out. If images fail to load, set securemode to lax in config.toml or turn off 'useProxy' in the extension settings.",
+  "author": "you",
+  "icon": "https://rule34.xxx/favicon.ico",
+  "website": "https://rule34.xxx/",
+  "lang": "multi",
+  "payloadURI": "",
+  "userConfig": {
+    "version": 1,
+    "requiresConfig": false,
+    "fields": [
+      { "type": "text", "name": "userId", "label": "Rule34 user ID" },
+      { "type": "text", "name": "apiKey", "label": "Rule34 API key" },
+      { "type": "text", "name": "serverUrl", "label": "Seanime server URL", "default": "http://127.0.0.1:43211" },
+      { "type": "switch", "name": "useProxy", "label": "Load images through Seanime's image proxy", "default": true }
+    ]
+  },
+  "plugin": {
+    "version": "1",
+    "permissions": {
+      "scopes": [],
+      "allow": {
+        "networkAccess": {
+          "allowedDomains": [
+            "api.rule34.xxx",
+            "rule34.xxx",
+            "api-cdn.rule34.xxx",
+            "wimg.rule34.xxx",
+            "localhost",
+            "127.0.0.1"
+          ],
+          "reasoning": "Required to query the Rule34 post API and load thumbnails/images."
+        }
+      }
+    }
+  },
+  "isDevelopment": false
+}
