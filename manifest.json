@@ -18,7 +18,7 @@
       { "type": "text", "name": "userId", "label": "Rule34 user ID" },
       { "type": "text", "name": "apiKey", "label": "Rule34 API key" },
       { "type": "text", "name": "serverUrl", "label": "Seanime server URL", "default": "http://127.0.0.1:43211" },
-      { "type": "switch", "name": "useProxy", "label": "Load images through Seanime's image proxy", "default": true }
+      { "type": "switch", "name": "useProxy", "label": "Load images through Seanime's image proxy", "default": "true" }
     ]
   },
   "plugin": {
