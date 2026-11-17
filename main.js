@@ -82,17 +82,24 @@ function init() {
                     params.push(`api_key=${encodeURIComponent(apiKey)}`)
                     params.push(`user_id=${encodeURIComponent(userId)}`)
                 }
-                const res = await ctx.fetch(`${API}?${params.join("&")}`)
-                const text = res.text()
-                let data = []
-                try {
-                    data = text ? JSON.parse(text) : []
-                } catch (e) {
-                    throw new Error(text ? text.slice(0, 200) : "Invalid response")
-                }
-                if (!Array.isArray(data)) data = []
-                posts.set(data.filter((p) => !isBlocked(p)))
-                page.set(pageNum)
+               const res = await ctx.fetch(`${API}?${params.join("&")}`)
+const text = res.text()
+const status = res.status
+let data = []
+try {
+    data = text ? JSON.parse(text) : []
+} catch (e) {
+    throw new Error(`HTTP ${status}, not JSON: ${text ? text.slice(0, 300) : "(empty)"}`)
+}
+if (!Array.isArray(data)) {
+    throw new Error(`HTTP ${status}, unexpected: ${text.slice(0, 300)}`)
+}
+const filtered = data.filter((p) => !isBlocked(p))
+if (filtered.length === 0) {
+    throw new Error(`No results. HTTP ${status}. Raw ${data.length} posts, ${data.length - filtered.length} filtered. Body: ${text.slice(0, 200)}`)
+}
+posts.set(filtered)
+page.set(pageNum)
             } catch (e) {
                 error.set(String(e && e.message ? e.message : e))
                 posts.set([])
