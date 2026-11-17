@@ -2,7 +2,7 @@
   "id": "rule34-browser",
   "name": "Rule34 Browser",
   "version": "0.1.0",
-  "manifestURI": "https://raw.githubusercontent.com/Vutani/seanime-rule34/main/manifest.json",
+ "manifestURI": "https://raw.githubusercontent.com/Vutani/Maybe-work/refs/heads/main/manifest.json",
   "language": "javascript",
   "type": "plugin",
   "description": "Browse Rule34 posts from Seanime. 18+ only. Content involving minors is always filtered out. If images fail to load, set securemode to lax in config.toml or turn off 'useProxy' in the extension settings.",
@@ -10,7 +10,7 @@
   "icon": "https://rule34.xxx/favicon.ico",
   "website": "https://rule34.xxx/",
   "lang": "multi",
-  "payloadURI": "https://raw.githubusercontent.com/Vutani/seanime-rule34/main/main.js",
+  "payloadURI": "https://raw.githubusercontent.com/Vutani/Maybe-work/refs/heads/main/main.js",
   "userConfig": {
     "version": 1,
     "requiresConfig": false,
