@@ -34,15 +34,28 @@ function init() {
 
         const tagsRef = ctx.fieldRef("")
         const ratingRef = ctx.fieldRef("any")
+        const userIdRef = ctx.fieldRef("")
+const apiKeyRef = ctx.fieldRef("")
+
+ctx.registerEventHandler("r34-save-key", () => {
+    $storage.set("userId", String(userIdRef.current || "").trim())
+    $storage.set("apiKey", String(apiKeyRef.current || "").trim())
+    tray.update()
+    load(0)
+})
 
         // ---------- helpers ----------
-        function pref(name, fallback) {
-            try {
-                const v = $getUserPreference(name)
-                return v === undefined || v === null || v === "" ? fallback : v
-            } catch (e) {
-                return fallback
-            }
+function pref(name, fallback) {
+    try {
+        const v = $getUserPreference(name)
+        if (v !== undefined && v !== null && v !== "") return v
+    } catch (e) {}
+    try {
+        const s = $storage.get(name)
+        if (s !== undefined && s !== null && s !== "") return s
+    } catch (e) {}
+    return fallback
+}
         }
 
         function img(url) {
@@ -177,8 +190,13 @@ page.set(pageNum)
                 }),
                 tray.button({ label: "Search", intent: "primary", onClick: "r34-search" }),
                 !hasKey
-                    ? tray.text("No API key/user ID set. Rule34's API may reject requests without them (see extension settings).", { style: { fontSize: "11px", opacity: 0.7 } })
-                    : tray.text(""),
+    ? tray.stack([
+        tray.text("Rule34 needs credentials. Enter them below (get them at api.rule34.xxx).", { style: { fontSize: "11px", opacity: 0.7 } }),
+        tray.input("User ID", { fieldRef: userIdRef }),
+        tray.input("API key", { fieldRef: apiKeyRef }),
+        tray.button({ label: "Save credentials", size: "sm", onClick: "r34-save-key" }),
+    ], { gap: 1 })
+    : tray.text(""),
                 loading.get() ? tray.text("Loading...") : tray.text(""),
                 error.get() ? tray.text(`Error: ${error.get()}`, { style: { color: "#f87171" } }) : tray.text(""),
                 gridView(),
