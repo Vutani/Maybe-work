@@ -197,7 +197,7 @@ function init() {
                     ],
                 }),
                 tray.button({ label: "Search", intent: "primary", onClick: "r34-search" }),
-                hasKey
+                false
                     ? tray.text("")
                     : tray.stack([
                         tray.text("Rule34 needs credentials. Enter them below (see api.rule34.xxx).", { style: { fontSize: "11px", opacity: 0.7 } }),
